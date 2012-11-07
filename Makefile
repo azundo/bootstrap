@@ -78,6 +78,24 @@ bootstrap:
 	rm bootstrap/js/copyright.js bootstrap/js/bootstrap.min.tmp.js
 
 #
+# BUILD SIMPLE BOOTSTRAP DIRECTORY for Azundo site
+# recess & uglifyjs are required
+#
+
+AZUNDO_STATIC_DIR = ../static
+azundo:
+	cp img/* ${AZUNDO_STATIC_DIR}/img/
+	recess --compile ${BOOTSTRAP_LESS} > ${AZUNDO_STATIC_DIR}/css/bootstrap.css
+	recess --compress ${BOOTSTRAP_LESS} > ${AZUNDO_STATIC_DIR}/css/bootstrap.min.css
+	recess --compile ${BOOTSTRAP_RESPONSIVE_LESS} > ${AZUNDO_STATIC_DIR}/css/bootstrap-responsive.css
+	recess --compress ${BOOTSTRAP_RESPONSIVE_LESS} > ${AZUNDO_STATIC_DIR}/css/bootstrap-responsive.min.css
+	cat js/bootstrap-transition.js js/bootstrap-alert.js js/bootstrap-button.js js/bootstrap-carousel.js js/bootstrap-collapse.js js/bootstrap-dropdown.js js/bootstrap-modal.js js/bootstrap-tooltip.js js/bootstrap-popover.js js/bootstrap-scrollspy.js js/bootstrap-tab.js js/bootstrap-typeahead.js js/bootstrap-affix.js > ${AZUNDO_STATIC_DIR}/js/bootstrap.js
+	uglifyjs -nc ${AZUNDO_STATIC_DIR}/js/bootstrap.js > ${AZUNDO_STATIC_DIR}/js/bootstrap.min.tmp.js
+	echo "/*!\n* Bootstrap.js by @fat & @mdo\n* Copyright 2012 Twitter, Inc.\n* http://www.apache.org/licenses/LICENSE-2.0.txt\n*/" > ${AZUNDO_STATIC_DIR}/js/copyright.js
+	cat ${AZUNDO_STATIC_DIR}/js/copyright.js ${AZUNDO_STATIC_DIR}/js/bootstrap.min.tmp.js > ${AZUNDO_STATIC_DIR}/js/bootstrap.min.js
+	rm ${AZUNDO_STATIC_DIR}/js/copyright.js ${AZUNDO_STATIC_DIR}/js/bootstrap.min.tmp.js
+
+#
 # MAKE FOR GH-PAGES 4 FAT & MDO ONLY (O_O  )
 #
 
