@@ -1,5 +1,7 @@
 BOOTSTRAP = ./docs/assets/css/bootstrap.css
 BOOTSTRAP_LESS = ./less/bootstrap.less
+BOOTSTRAP_LESS_VARIABLES = ./less/variables.less
+BOOTSTRAP_LESS_MIXINS = ./less/mixins.less
 BOOTSTRAP_RESPONSIVE = ./docs/assets/css/bootstrap-responsive.css
 BOOTSTRAP_RESPONSIVE_LESS = ./less/responsive.less
 DATE=$(shell date +%I:%M%p)
@@ -89,6 +91,8 @@ azundo:
 	recess --compress ${BOOTSTRAP_LESS} > ${AZUNDO_STATIC_DIR}/css/bootstrap.min.css
 	recess --compile ${BOOTSTRAP_RESPONSIVE_LESS} > ${AZUNDO_STATIC_DIR}/css/bootstrap-responsive.css
 	recess --compress ${BOOTSTRAP_RESPONSIVE_LESS} > ${AZUNDO_STATIC_DIR}/css/bootstrap-responsive.min.css
+	cp ${BOOTSTRAP_LESS_VARIABLES} ${AZUNDO_STATIC_DIR}/css/
+	cp ${BOOTSTRAP_LESS_MIXINS} ${AZUNDO_STATIC_DIR}/css/
 	cat js/bootstrap-transition.js js/bootstrap-alert.js js/bootstrap-button.js js/bootstrap-carousel.js js/bootstrap-collapse.js js/bootstrap-dropdown.js js/bootstrap-modal.js js/bootstrap-tooltip.js js/bootstrap-popover.js js/bootstrap-scrollspy.js js/bootstrap-tab.js js/bootstrap-typeahead.js js/bootstrap-affix.js > ${AZUNDO_STATIC_DIR}/js/bootstrap.js
 	uglifyjs -nc ${AZUNDO_STATIC_DIR}/js/bootstrap.js > ${AZUNDO_STATIC_DIR}/js/bootstrap.min.tmp.js
 	echo "/*!\n* Bootstrap.js by @fat & @mdo\n* Copyright 2012 Twitter, Inc.\n* http://www.apache.org/licenses/LICENSE-2.0.txt\n*/" > ${AZUNDO_STATIC_DIR}/js/copyright.js
